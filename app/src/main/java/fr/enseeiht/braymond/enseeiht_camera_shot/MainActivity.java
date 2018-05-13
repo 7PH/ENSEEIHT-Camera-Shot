@@ -56,4 +56,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
         camera.startPreview();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(MainActivity.TAG, "Released camera");
+        camera.release();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        camera = CameraHelper.getFrontFacingCamera();
+        cameraPreview.setCamera(camera);
+    }
 }

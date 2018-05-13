@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 /** Utility class for Camera
  * @author Benjamin RAYMOND
@@ -45,10 +44,8 @@ public class CameraHelper {
         try {
             Camera.CameraInfo info = new Camera.CameraInfo();
             Camera.getCameraInfo(id, info);
-            Log.e(MainActivity.TAG, "trying to open camera " + id + " facing " + info.facing);
             return Camera.open(id);
         } catch (Exception e) {
-            Log.e(MainActivity.TAG, "well, that did not worked " + e.getMessage());
             return null;
         }
     }
