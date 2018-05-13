@@ -10,6 +10,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+/** Utility class for Camera
+ * @author Benjamin RAYMOND
+ */
 public class CameraHelper {
     private CameraHelper() { }
 
