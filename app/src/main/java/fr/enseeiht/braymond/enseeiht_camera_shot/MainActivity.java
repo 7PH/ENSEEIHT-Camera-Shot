@@ -1,6 +1,5 @@
 package fr.enseeiht.braymond.enseeiht_camera_shot;
 
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.support.v7.app.AppCompatActivity;
@@ -48,17 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        camera.stopPreview();
-        camera.setPreviewCallback(null);
-
+        camera.stopPreview(); // not necessary because 'takePicture' stops preview
         camera.takePicture(null, null, this);
     }
 
     @Override
     public void onPictureTaken(byte[] bytes, Camera camera) {
         imageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-
         camera.startPreview();
-        cameraPreview.setCamera(camera);
     }
 }
