@@ -1,9 +1,13 @@
 package fr.enseeiht.braymond.enseeiht_camera_shot;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 public class CameraHelper {
@@ -17,6 +21,20 @@ public class CameraHelper {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }
 
+    /**
+     * Ask for permission to use the camera if needed
+     * @param activityContext
+     * @return
+     */
+    public static boolean askForCamera(Activity activityContext) {
+        if (ContextCompat.checkSelfPermission(activityContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activityContext, new String[]{Manifest.permission.CAMERA}, 50);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /** Get the Camera instance
      * @return Camera instance
      */
@@ -27,7 +45,7 @@ public class CameraHelper {
             Log.e(MainActivity.TAG, "trying to open camera " + id + " facing " + info.facing);
             return Camera.open(id);
         } catch (Exception e) {
-            Log.e(MainActivity.TAG, "well, that did not worked");
+            Log.e(MainActivity.TAG, "well, that did not worked " + e.getMessage());
             return null;
         }
     }
@@ -56,7 +74,7 @@ public class CameraHelper {
     /** Return the camera instance of the first back facing camera found. Null if not found.
      * @return Camera instance
      */
-    public static Camera getBackFacingCameraId() {
+    public static Camera getBackFacingCamera() {
         int id = getFacingCameraId(Camera.CameraInfo.CAMERA_FACING_BACK);
         return id == -1 ? null : getInstance(id);
     }
@@ -64,7 +82,7 @@ public class CameraHelper {
     /** Return the camera instance of the first back facing camera found. Null if not found.
      * @return Camera instance
      */
-    public static Camera getFrontFacingCameraId() {
+    public static Camera getFrontFacingCamera() {
         int id = getFacingCameraId(Camera.CameraInfo.CAMERA_FACING_FRONT);
         return id == -1 ? null : getInstance(id);
     }
