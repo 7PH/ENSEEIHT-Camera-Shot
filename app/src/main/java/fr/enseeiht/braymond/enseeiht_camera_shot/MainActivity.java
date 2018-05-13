@@ -48,11 +48,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        camera.stopPreview();
+        camera.setPreviewCallback(null);
+
         camera.takePicture(null, null, this);
     }
 
     @Override
     public void onPictureTaken(byte[] bytes, Camera camera) {
         imageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+
+        camera.startPreview();
+        cameraPreview.setCamera(camera);
     }
 }
