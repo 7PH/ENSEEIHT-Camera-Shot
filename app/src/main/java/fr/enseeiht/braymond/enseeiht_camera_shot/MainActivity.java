@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        camera.stopPreview(); // not necessary because 'takePicture' stops preview
         camera.takePicture(null, null, this);
     }
 
